@@ -17,11 +17,7 @@ interface IComponentTreeContext {
   getProps: (key: string) => ComponentProps;
   getSelectedComponentProps: () => ComponentProps;
   setSelectedComponent: (key: string) => void;
-  updateComponentPropsByPath: (
-    key: string,
-    path: string[],
-    value: any
-  ) => ComponentProps;
+  updateComponentPropsByPath: (key: string, path: string[], value: any) => void;
   selectedComponent: string;
   componentProps: InternalComponentProps;
 }
@@ -35,7 +31,7 @@ const CompomentTreeContext = createContext<IComponentTreeContext>({
   componentProps: {} as InternalComponentProps,
   getProps: () => ({} as ComponentProps),
   selectedComponent: '',
-  updateComponentPropsByPath: () => ({} as ComponentProps),
+  updateComponentPropsByPath: () => {},
   getSelectedComponentProps: () => ({} as ComponentProps),
   setSelectedComponent: () => {},
   updateComponentProps: () => {},
@@ -76,13 +72,11 @@ export const ComponentTreeProvider: FC<ComponentTreeProps> = ({
     (key: string, path: string[], value: any) => {
       const props = getProps(key);
       let current = props;
-      for (let i = 0; i < path.length - 1; i++) {
+      for (let i = 0; i < path.length - 1; i += 1) {
         current = current[path[i] as keyof ComponentProps] as ComponentProps;
-        console.log(current);
       }
       current[path[path.length - 1] as keyof ComponentProps] = value;
       updateComponentProps()(key, props);
-      return current;
     },
     [getProps, updateComponentProps]
   );

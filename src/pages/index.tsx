@@ -1,4 +1,4 @@
-import { Box, Grid } from '@mui/material';
+import { Grid } from '@mui/material';
 import BodyContainer from '@/components/BodyContainer';
 import ElementsContainer from '@/components/ElementsContainer';
 import {

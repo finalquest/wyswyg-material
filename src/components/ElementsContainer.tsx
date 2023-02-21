@@ -1,4 +1,4 @@
-import { Box, Grid } from '@mui/material';
+import { Box } from '@mui/material';
 import PropViewer from './propViewer/PropViewer';
 
 const ElementsContainer = () => (
