@@ -15,6 +15,14 @@ export interface InternalComponentProps {
 interface IComponentTreeContext {
   updateComponentProps: (key: string, props: ComponentProps) => void;
   getProps: (key: string) => ComponentProps;
+  getSelectedComponentProps: () => ComponentProps;
+  setSelectedComponent: (key: string) => void;
+  updateComponentPropsByPath: (
+    key: string,
+    path: string[],
+    value: any
+  ) => ComponentProps;
+  selectedComponent: string;
   componentProps: InternalComponentProps;
 }
 
@@ -26,6 +34,10 @@ type ComponentTreeProps = {
 const CompomentTreeContext = createContext<IComponentTreeContext>({
   componentProps: {} as InternalComponentProps,
   getProps: () => ({} as ComponentProps),
+  selectedComponent: '',
+  updateComponentPropsByPath: () => ({} as ComponentProps),
+  getSelectedComponentProps: () => ({} as ComponentProps),
+  setSelectedComponent: () => {},
   updateComponentProps: () => {},
 });
 
@@ -36,6 +48,13 @@ export const ComponentTreeProvider: FC<ComponentTreeProps> = ({
 }) => {
   const [componentProps, setComponentProps] = useState<InternalComponentProps>(
     compProps as InternalComponentProps
+  );
+
+  const [selectedComponent, setSelectedComponent] = useState<string>('');
+
+  const getSelectedComponentProps = useCallback(
+    () => componentProps[selectedComponent],
+    [componentProps, selectedComponent]
   );
 
   const updateComponentProps = useCallback(
@@ -52,13 +71,40 @@ export const ComponentTreeProvider: FC<ComponentTreeProps> = ({
     [componentProps]
   );
 
+  // update specific component props based on path array
+  const updateComponentPropsByPath = useCallback(
+    (key: string, path: string[], value: any) => {
+      const props = getProps(key);
+      let current = props;
+      for (let i = 0; i < path.length - 1; i++) {
+        current = current[path[i] as keyof ComponentProps] as ComponentProps;
+        console.log(current);
+      }
+      current[path[path.length - 1] as keyof ComponentProps] = value;
+      updateComponentProps()(key, props);
+      return current;
+    },
+    [getProps, updateComponentProps]
+  );
+
   const value = React.useMemo(
     () => ({
       componentProps,
       updateComponentProps,
       getProps,
+      setSelectedComponent,
+      getSelectedComponentProps,
+      updateComponentPropsByPath,
+      selectedComponent,
     }),
-    [componentProps, updateComponentProps, getProps]
+    [
+      componentProps,
+      updateComponentProps,
+      getProps,
+      getSelectedComponentProps,
+      selectedComponent,
+      updateComponentPropsByPath,
+    ]
   );
 
   return (

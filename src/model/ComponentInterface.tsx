@@ -17,8 +17,8 @@ export interface ComponentInterface {
 
 export interface ComponentProps {
   parent?: ComponentInterface | null;
-  childs?: ComponentInterface[];
+  childs?: string[];
   props: { [key: string]: any };
   attributes?: CompomentAttributes;
-  type: any;
+  type: string;
 }

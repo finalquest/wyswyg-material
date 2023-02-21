@@ -8,12 +8,73 @@ import {
 
 const props: InternalComponentProps = {
   component1: {
-    type: Box,
+    type: 'Box',
+    props: {
+      sx: {
+        flex: 1,
+        backgroundColor: 'pink',
+        borderColor: 'black',
+        border: 1,
+        display: 'flex',
+        flexDirection: 'column',
+      },
+      parent: this,
+    },
+    childs: ['component2', 'component3', 'component4', 'component5'],
+  },
+  component2: {
+    type: 'Box',
+    props: {
+      sx: {
+        flex: 1,
+        backgroundColor: 'brown',
+        borderColor: 'black',
+        margin: 2,
+        border: 1,
+        display: 'flex',
+        flexDirection: 'column',
+      },
+      parent: this,
+    },
+  },
+  component3: {
+    type: 'Box',
+    props: {
+      sx: {
+        flex: 1,
+        backgroundColor: 'blue',
+        borderColor: 'black',
+        margin: 2,
+        border: 1,
+        display: 'flex',
+        flexDirection: 'column',
+      },
+      parent: this,
+    },
+  },
+  component4: {
+    type: 'Box',
+    props: {
+      sx: {
+        flex: 1,
+        backgroundColor: 'yellow',
+        borderColor: 'black',
+        margin: 2,
+        border: 1,
+        display: 'flex',
+        flexDirection: 'column',
+      },
+      parent: this,
+    },
+  },
+  component5: {
+    type: 'Box',
     props: {
       sx: {
         flex: 1,
         backgroundColor: 'green',
         borderColor: 'black',
+        margin: 2,
         border: 1,
         display: 'flex',
         flexDirection: 'column',
@@ -32,7 +93,7 @@ const Home = () => (
       <Grid item sx={{ backgroundColor: 'pink', flex: 1, display: 'flex' }}>
         <BodyContainer />
       </Grid>
-      <Grid item sx={{ backgroundColor: 'brown', flex: 0.2 }}>
+      <Grid item sx={{ backgroundColor: 'brown', flex: 0.3, display: 'flex' }}>
         <ElementsContainer />
       </Grid>
     </ComponentTreeProvider>

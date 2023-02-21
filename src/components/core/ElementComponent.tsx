@@ -6,12 +6,16 @@ import {
 } from '@/model/ComponentInterface';
 import { useTreeContextProps } from '@/model/ComponentTreeContext';
 import InfoAttBox from './InfoAttBox';
+import getElementByType from './ElementResolver';
 
 const ElementComponent: React.FC<ComponentInterface> = ({ id }) => {
   const ref = useRef<HTMLInputElement>(null);
-  const { getProps } = useTreeContextProps();
+  const { getProps, setSelectedComponent, selectedComponent } =
+    useTreeContextProps();
+  console.log(id);
   const { props, type, childs } = getProps(id);
-  const RenderComponent = type;
+  console.log(props, type, childs);
+  const RenderComponent = getElementByType(type);
 
   const [componentAttributes, setComponentAttributes] =
     useState<CompomentAttributes>({
@@ -38,14 +42,22 @@ const ElementComponent: React.FC<ComponentInterface> = ({ id }) => {
     return () => window.removeEventListener('resize', updateSize);
   }, []);
 
-  const handleOnclick = () => {
-    console.log('ElementComponent.tsx: handleOnclick()');
+  const handleOnclick = (ev: any) => {
+    setSelectedComponent(id);
+
+    ev.stopPropagation();
   };
 
+  const childComponents = childs?.map((child) => (
+    <ElementComponent key={child} id={child} />
+  ));
+
+  const showInfoBox = selectedComponent === id || !childs;
+  console.log(props);
   return (
     <RenderComponent ref={ref} {...props} onClick={handleOnclick}>
-      {childs}
-      {!childs && (
+      {childComponents}
+      {showInfoBox && (
         <InfoAttBox
           x={componentAttributes.x}
           y={componentAttributes.y}
