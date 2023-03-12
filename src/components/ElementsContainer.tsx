@@ -1,11 +1,9 @@
 import { Box } from '@mui/material';
+import AvailableElementsContainer from './availableElements/AvailableElementsContainer';
 import PropViewer from './propViewer/PropViewer';
 
 const ElementsContainer = () => (
   <Box
-    // container
-    // md={12}
-    // item
     sx={{
       backgroundColor: 'brown',
       flex: 1,
@@ -13,14 +11,7 @@ const ElementsContainer = () => (
       flexDirection: 'column',
     }}
   >
-    <Box
-      sx={{
-        flex: 0.3,
-        backgroundColor: 'pink',
-        display: 'flex',
-        alignSelf: 'stretch',
-      }}
-    />
+    <AvailableElementsContainer/>
     <PropViewer />
   </Box>
 );
