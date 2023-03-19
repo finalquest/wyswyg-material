@@ -12,79 +12,81 @@ const props: InternalComponentProps = {
     props: {
       sx: {
         flex: 1,
-        backgroundColor: 'pink',
-        borderColor: 'black',
-        border: 1,
-        display: 'flex',
-        flexDirection: 'column',
-      },
-      parent: this,
-    },
-    childs: ['component2', 'component3', 'component4', 'component5'],
-  },
-  component2: {
-    type: 'Box',
-    props: {
-      sx: {
-        flex: 1,
-        backgroundColor: 'brown',
-        borderColor: 'black',
-        margin: 2,
-        border: 1,
-        display: 'flex',
-        flexDirection: 'column',
-      },
-      parent: this,
-    },
-  },
-  component3: {
-    type: 'Box',
-    props: {
-      sx: {
-        flex: 1,
         backgroundColor: 'blue',
         borderColor: 'black',
-        margin: 2,
         border: 1,
         display: 'flex',
         flexDirection: 'column',
       },
       parent: this,
     },
+    childs: [],
   },
-  component4: {
-    type: 'Box',
-    props: {
-      sx: {
-        flex: 1,
-        backgroundColor: 'yellow',
-        borderColor: 'black',
-        margin: 2,
-        border: 1,
-        display: 'flex',
-        flexDirection: 'column',
-      },
-      parent: this,
-    },
-  },
-  component5: {
-    type: 'Box',
-    props: {
-      sx: {
-        flex: 1,
-        backgroundColor: 'green',
-        borderColor: 'black',
-        margin: 2,
-        border: 1,
-        display: 'flex',
-        flexDirection: 'column',
-      },
-      parent: this,
-    },
-  },
+  // component2: {
+  //   type: 'Box',
+  //   props: {
+  //     sx: {
+  //       flex: 1,
+  //       backgroundColor: 'brown',
+  //       borderColor: 'black',
+  //       margin: 2,
+  //       border: 1,
+  //       display: 'flex',
+  //       flexDirection: 'column',
+  //     },
+  //     parent: this,
+  //   },
+  // },
+  // component3: {
+  //   type: 'Box',
+  //   props: {
+  //     sx: {
+  //       flex: 1,
+  //       backgroundColor: 'blue',
+  //       borderColor: 'black',
+  //       margin: 2,
+  //       border: 1,
+  //       display: 'flex',
+  //       flexDirection: 'column',
+  //     },
+  //     parent: this,
+  //   },
+  // },
+  // component4: {
+  //   type: 'Box',
+  //   props: {
+  //     sx: {
+  //       flex: 1,
+  //       backgroundColor: 'yellow',
+  //       borderColor: 'black',
+  //       margin: 2,
+  //       border: 1,
+  //       display: 'flex',
+  //       flexDirection: 'column',
+  //     },
+  //     parent: this,
+  //   },
+  // },
+  // component5: {
+  //   type: 'Box',
+  //   props: {
+  //     sx: {
+  //       flex: 1,
+  //       backgroundColor: 'green',
+  //       borderColor: 'black',
+  //       margin: 2,
+  //       border: 1,
+  //       display: 'flex',
+  //       flexDirection: 'column',
+  //     },
+  //     parent: this,
+  //   },
+  // },
 };
 
-const Home = () => (
+const Home = () => {
+  console.log("aAAAAAAAAAAA");
+return (
   <Grid
     container
     sx={{ width: '100wh', height: '100vh', backgroundColor: 'red' }}
@@ -99,5 +101,6 @@ const Home = () => (
     </ComponentTreeProvider>
   </Grid>
 );
+}
 
 export default Home;
