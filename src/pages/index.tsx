@@ -84,9 +84,7 @@ const props: InternalComponentProps = {
   // },
 };
 
-const Home = () => {
-  console.log("aAAAAAAAAAAA");
-return (
+const Home = () => (
   <Grid
     container
     sx={{ width: '100wh', height: '100vh', backgroundColor: 'red' }}
@@ -101,6 +99,5 @@ return (
     </ComponentTreeProvider>
   </Grid>
 );
-}
 
 export default Home;

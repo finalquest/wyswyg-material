@@ -68,14 +68,18 @@ export const ComponentTreeProvider: FC<ComponentTreeProps> = ({
     (childProps: ComponentProps, name: string) => {
       const newComponent = { ...componentProps };
       newComponent[name] = childProps;
-      newComponent[selectedComponent].childs ? newComponent[selectedComponent].childs.push(name) : newComponent[selectedComponent].childs = [name];
-      setComponentProps(newComponent); 
-    }, [componentProps, selectedComponent]
+      if (newComponent[selectedComponent].childs) {
+        newComponent[selectedComponent].childs?.push(name);
+      } else {
+        newComponent[selectedComponent].childs = [name];
+      }
+      setComponentProps(newComponent);
+    },
+    [componentProps, selectedComponent]
   );
 
-
   const getProps = useCallback(
-    (key: string) => { return {...componentProps[key]} },
+    (key: string) => ({ ...componentProps[key] }),
     [componentProps]
   );
 
@@ -94,36 +98,38 @@ export const ComponentTreeProvider: FC<ComponentTreeProps> = ({
   // );
   //
   const updateComponentPropsByPath = useCallback(
-  (key: string, path: string[], value: any) => {
-    setComponentProps((prevState) => {
-      const updatedProps = { ...prevState };
-      const target = updatedProps[key];
+    (key: string, path: string[], value: any) => {
+      setComponentProps((prevState) => {
+        const updatedProps = { ...prevState };
+        const target = updatedProps[key];
 
-      if (!target) return prevState;
+        if (!target) return prevState;
 
-      const updateNestedProps = (
-        obj: ComponentProps,
-        nestedPath: string[],
-        nestedValue: any
-      ): ComponentProps => {
-        if (nestedPath.length === 1) {
-          return { ...obj, [nestedPath[0]]: nestedValue };
-        } else {
+        const updateNestedProps = (
+          obj: ComponentProps,
+          nestedPath: string[],
+          nestedValue: any
+        ): ComponentProps => {
+          if (nestedPath.length === 1) {
+            return { ...obj, [nestedPath[0]]: nestedValue };
+          }
           const nextKey = nestedPath.shift() as keyof ComponentProps;
           return {
             ...obj,
-            [nextKey]: updateNestedProps(obj[nextKey] as ComponentProps, nestedPath, nestedValue),
+            [nextKey]: updateNestedProps(
+              obj[nextKey] as ComponentProps,
+              nestedPath,
+              nestedValue
+            ),
           };
-        }
-      };
+        };
 
-      updatedProps[key] = updateNestedProps(target, [...path], value);
-      return updatedProps;
-    });
-  },
-  []
-);
-
+        updatedProps[key] = updateNestedProps(target, [...path], value);
+        return updatedProps;
+      });
+    },
+    []
+  );
 
   const value = React.useMemo(
     () => ({

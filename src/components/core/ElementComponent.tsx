@@ -52,7 +52,8 @@ const ElementComponent: React.FC<ComponentInterface> = ({ id }) => {
     <ElementComponent key={child} id={child} />
   ));
 
-  const showInfoBox = selectedComponent === id || !childs || childs.length === 0;
+  const showInfoBox =
+    selectedComponent === id || !childs || childs.length === 0;
   console.log(props);
   return (
     <RenderComponent ref={ref} {...props} onClick={handleOnclick}>

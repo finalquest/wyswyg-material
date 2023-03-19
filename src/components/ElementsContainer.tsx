@@ -11,7 +11,7 @@ const ElementsContainer = () => (
       flexDirection: 'column',
     }}
   >
-    <AvailableElementsContainer/>
+    <AvailableElementsContainer />
     <PropViewer />
   </Box>
 );
