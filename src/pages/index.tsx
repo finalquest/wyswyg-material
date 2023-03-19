@@ -9,6 +9,7 @@ import {
 const props: InternalComponentProps = {
   component1: {
     type: 'Box',
+    name: 'parent',
     props: {
       sx: {
         flex: 1,

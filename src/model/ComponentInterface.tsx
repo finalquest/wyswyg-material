@@ -21,4 +21,5 @@ export interface ComponentProps {
   props: { [key: string]: any };
   attributes?: CompomentAttributes;
   type: string;
+  name: string;
 }
